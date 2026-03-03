@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Report & Analysis</h2>
+
+<div class="row mt-4">
+
+    <div class="col-md-3">
+        <div class="card shadow p-3 text-center bg-primary text-white">
+            <h6>Total</h6>
+            <h2 id="total">{{ data.total }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow p-3 text-center bg-success text-white">
+            <h6>Graded</h6>
+            <h2 id="graded">{{ data.graded }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow p-3 text-center bg-warning text-dark">
+            <h6>Pending</h6>
+            <h2 id="pending">{{ data.pending }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow p-3 text-center bg-danger text-white">
+            <h6>Late</h6>
+            <h2 id="late">{{ data.late }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-4">
+
+<div class="card shadow p-4">
+    <canvas id="chart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const graded = parseInt(document.getElementById("graded").innerText);
+    const pending = parseInt(document.getElementById("pending").innerText);
+
+    const ctx = document.getElementById('chart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Graded', 'Pending'],
+            datasets: [{
+                label: 'Submissions',
+                data: [graded, pending]
+            }]
+        }
+    });
+</script>
+
+{% endblock %}

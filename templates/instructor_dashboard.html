@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">Instructor Dashboard</h3>
+<form method="GET" class="row mb-3">
+
+    <div class="col-md-4">
+        <input type="text"
+               name="search"
+               class="form-control"
+               placeholder="Search by student name"
+               value="{{ search_query or '' }}">
+    </div>
+
+    <div class="col-md-4">
+        <select name="status" class="form-control">
+            <option value="">All Status</option>
+            <option value="Submitted" {% if status_filter == 'Submitted' %}selected{% endif %}>Submitted</option>
+            <option value="Graded" {% if status_filter == 'Graded' %}selected{% endif %}>Graded</option>
+            <option value="Rejected" {% if status_filter == 'Rejected' %}selected{% endif %}>Rejected</option>
+            <option value="Late" {% if status_filter == 'Late' %}selected{% endif %}>Late</option>
+        </select>
+    </div>
+
+    <div class="col-md-4 d-flex gap-2">
+        <button class="btn btn-primary w-50">Filter</button>
+        <a href="{{ url_for('instructor_dashboard') }}" class="btn btn-secondary w-50">Reset</a>
+    </div>
+
+</form>
+
+<div class="card p-3">
+    <h5>Submission Overview</h5>
+
+    <table class="table table-dark table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Assignment</th>
+                <th>Status</th>
+                <th>Marks</th>
+                <th>Download</th>
+                <th>Grade</th>
+                <th>Reject</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for s in submissions %}
+            <tr>
+                <td>{{ s.student_name }}</td>
+                <td>{{ s.get('assignment_name', 'Untitled') }}</td>
+                <!-- STATUS BADGE -->
+                <td>
+                    {% if s.status == 'Graded' %}
+                        <span class="badge bg-success">Graded</span>
+                    {% elif s.status == 'Late' %}
+                        <span class="badge bg-warning text-dark">Late</span>
+                    {% elif s.status == 'Rejected' %}
+                        <span class="badge bg-danger">Rejected</span>
+                    {% elif s.status == 'Submitted' %}
+                        <span class="badge bg-primary">Submitted</span>
+                    {% else %}
+                        <span class="badge bg-secondary">{{ s.status }}</span>
+                    {% endif %}
+                </td>
+
+                <!-- MARKS COLUMN -->
+                <td>
+                    {{ s.get('marks', '-') }}
+                </td>
+
+                <!-- DOWNLOAD -->
+                <td>
+                    <a href="{{ url_for('download_submission', submission_id=s.submission_id) }}"
+                       class="btn btn-sm btn-info">
+                        Download
+                    </a>
+                </td>
+
+                <!-- GRADE -->
+                <td>
+                    {% if s.status != 'Graded' %}
+                        <a href="{{ url_for('grade_submission', submission_id=s.submission_id) }}"
+                           class="btn btn-sm btn-success">
+                            Grade
+                        </a>
+                    {% else %}
+                        <button class="btn btn-sm btn-secondary" disabled>
+                            Graded
+                        </button>
+                    {% endif %}
+                </td>
+
+                <!-- REJECT -->
+                <td>
+                    {% if s.status != 'Graded' and s.status != 'Rejected' %}
+                        <form method="POST"
+                              action="{{ url_for('reject_submission', submission_id=s.submission_id) }}"
+                              style="display:inline;">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                Reject
+                            </button>
+                        </form>
+                    {% else %}
+                        <button class="btn btn-sm btn-secondary" disabled>
+                            -
+                        </button>
+                    {% endif %}
+                </td>
+
+                <!-- DELETE -->
+                <td>
+                    <form method="POST"
+                          action="{{ url_for('delete_submission', submission_id=s.submission_id) }}"
+                          style="display:inline;">
+                        <button type="submit"
+                                class="btn btn-sm btn-dark"
+                                onclick="return confirm('Are you sure you want to delete this submission?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="{{ url_for('analytics') }}" class="btn btn-outline-light mt-3">
+    View Analytics
+</a>
+
+{% endblock %}

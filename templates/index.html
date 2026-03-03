@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row align-items-center" style="min-height:70vh;">
+
+    <div class="col-md-6">
+        <h1 class="display-4 fw-bold mb-3">
+            Secure Assignment Submission Portal
+        </h1>
+
+        <p class="lead text-light">
+            EduVault is a cloud-powered assignment submission and grading platform.
+            Built with AWS S3, DynamoDB, Lambda, and SNS for secure,
+            scalable, and real-time academic workflows.
+        </p>
+
+        <div class="mt-4">
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg me-3">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg">
+                Register
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-6 text-center">
+        <div class="card p-5 shadow-lg">
+            <h4 class="mb-3">🚀 Cloud Architecture</h4>
+            <p>S3 → Lambda → DynamoDB → SNS</p>
+            <hr>
+            <p class="small text-muted">
+                Serverless | Secure | Scalable | Real-time Notifications
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h5>🔒 Secure Uploads</h5>
+            <p>Files stored in AWS S3 with IAM role-based security.</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h5>⚡ Real-time Alerts</h5>
+            <p>Automatic SNS notifications for grading and submissions.</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h5>📊 Smart Analytics</h5>
+            <p>Instructor dashboards with performance insights.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

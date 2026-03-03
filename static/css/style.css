@@ -1,0 +1,47 @@
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    font-family: 'Segoe UI', sans-serif;
+    color: #f8fafc;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+}
+
+p {
+    color: #e2e8f0;
+}
+
+.lead {
+    color: #cbd5e1;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.card p {
+    color: #e2e8f0;
+}
+
+hr {
+    border-color: rgba(255,255,255,0.2);
+}
+
+.btn-outline-light {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #0f172a;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #111827, #1f2937) !important;
+}

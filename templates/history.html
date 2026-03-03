@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Submission History</h2>
+
+<div class="card shadow p-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Assignment</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in submissions %}
+            <td>
+    {{ s.get('feedback', '-') }}
+</td>
+            <tr>
+                <td>{{ s.assignment }}</td>
+                <td>{{ s.status }}</td>
+                <td>{{ s.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

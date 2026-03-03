@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="mb-4">Upload Assignment</h3>
+
+    {% if deadline_passed %}
+        <div class="alert alert-danger text-center">
+            🚫 Deadline has passed. Upload is closed.
+        </div>
+    {% endif %}
+
+    <div class="card shadow p-4 bg-dark text-light">
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label class="form-label">Assignment Name</label>
+                <input type="text"
+                       name="assignment_name"
+                       class="form-control"
+                       placeholder="Enter Assignment Name"
+                       {% if deadline_passed %}disabled{% endif %}
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Upload File</label>
+                <input type="file"
+                       name="file"
+                       class="form-control"
+                       {% if deadline_passed %}disabled{% endif %}
+                       required>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-success w-100"
+                    {% if deadline_passed %}disabled{% endif %}>
+                Upload Assignment
+            </button>
+
+        </form>
+
+        {% if deadline_passed %}
+            <div class="alert alert-warning text-center mt-3">
+                <strong>Assignment Deadline:</strong> Deadline Passed
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded-4">
+
+        <h3 class="mb-4">Grade Assignment</h3>
+
+        <p><strong>Student:</strong> {{ submission.student }}</p>
+        <p><strong>Assignment:</strong> {{ submission.assignment }}</p>
+        <p>
+            <strong>Status:</strong>
+            <span class="badge bg-warning text-dark">
+                {{ submission.status }}
+            </span>
+        </p>
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Enter Marks</label>
+                <input type="number" name="marks" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Feedback</label>
+                <textarea name="feedback" class="form-control" rows="3"></textarea>
+            </div>
+
+            {% if submission.status == "Late" %}
+            <div class="d-flex gap-3 mt-3">
+
+                <!-- Accept Late -->
+                <button type="submit"
+                        name="late_action"
+                        value="accept"
+                        class="btn btn-success px-4">
+                    ✔ Accept Late (−10 Marks)
+                </button>
+
+                <!-- Reject -->
+                <button type="submit"
+                        name="late_action"
+                        value="reject"
+                        class="btn btn-danger px-4">
+                    ❌ Reject Submission
+                </button>
+
+            </div>
+            {% else %}
+
+            <button type="submit" class="btn btn-primary mt-3 px-4">
+                Submit Grade
+            </button>
+
+            <form method="POST">
+    <div class="mb-3">
+        <label>Marks</label>
+        <input type="number" name="marks" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Feedback</label>
+        <textarea name="feedback" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <button class="btn btn-success">Submit</button>
+</form>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

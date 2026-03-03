@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard | EduVault{% endblock %}
+
+{% block content %}
+
+<div class="row mb-4">
+
+    <div class="col-md-3">
+        <div class="card p-4 text-center">
+            <h6>Total Submissions</h6>
+            <h2 class="fw-bold text-info">{{ total }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-4 text-center">
+            <h6>Late Submissions</h6>
+            <h2 class="fw-bold text-warning">{{ late }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-4 text-center">
+            <h6>Graded</h6>
+            <h2 class="fw-bold text-success">{{ graded }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-4 text-center">
+            <h6>Average Marks</h6>
+            <h2 class="fw-bold text-primary">{{ avg_marks }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<div class="card p-4">
+    <h4 class="mb-3">Recent Submissions</h4>
+
+    {% if submissions %}
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Assignment</th>
+                    <th>Status</th>
+                    <th>Marks</th>
+                    <th>Submitted At</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in submissions %}
+                <tr>
+                    <td>{{ s.assignment_name }}</td>
+                    <td>
+                        {% if s.status == "Graded" %}
+                            <span class="badge bg-success">Graded</span>
+                        {% elif s.status == "Late" %}
+                            <span class="badge bg-warning text-dark">Late</span>
+                        {% elif s.status == "Rejected" %}
+                            <span class="badge bg-danger">Rejected</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Submitted</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ s.marks if s.marks else "-" }}</td>
+                    <td>{{ s.submitted_at[:19] }}</td>
+                    <td>
+                        <a href="{{ url_for('download_submission', submission_id=s.submission_id) }}"
+                           class="btn btn-sm btn-outline-light">
+                            Download
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-muted">No submissions yet.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

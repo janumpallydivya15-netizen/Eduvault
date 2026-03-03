@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Register | EduVault{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card shadow-lg p-4" style="width: 500px;">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Create Account</h2>
+            <p class="text-light">Join EduVault Assignment Portal</p>
+        </div>
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Role</label>
+                <select name="role" class="form-select" required>
+                    <option value="student">Student</option>
+                    <option value="instructor">Instructor</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Student ID (Only for Students)</label>
+                <input type="text" name="student_id" class="form-control" placeholder="Optional for Instructor">
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Register
+                </button>
+            </div>
+
+        </form>
+
+        <hr class="my-4">
+
+        <div class="text-center">
+            <p class="small">
+                Already have an account?
+                <a href="{{ url_for('login') }}" class="text-info fw-bold">Login here</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

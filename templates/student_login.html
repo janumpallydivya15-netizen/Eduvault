@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card shadow-lg p-4">
+            <h3 class="text-center mb-3">Student Login</h3>
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+    <input name="student_id" class="form-control mb-3" placeholder="Student ID" required>
+    <input name="password" type="password" class="form-control mb-3" placeholder="Password" required>
+    <button class="btn btn-primary w-100">Login</button>
+</form>
+
+<div class="text-center mt-3">
+    <small>
+        Don't have an account?
+        <a href="{{ url_for('student_register') }}" class="fw-bold text-primary">
+            Register here
+        </a>
+    </small>
+</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
